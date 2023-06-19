@@ -1,17 +1,27 @@
 ﻿namespace Components
 {
-    public class PositionComponent
+    public class PositionComponent : IComponent
     {
-        private int _x;
-        private int _y;
+        public Vector2D Pos { get; set; }
+        public int Z { get; private set; }
 
-        public PositionComponent(int x, int y)
+        public Vector2D LastPos { get; set; }
+
+        public PositionComponent(Vector2D pos, int z)
         {
-            _x = x;
-            _y = y;
+            Pos = pos;
+            Z = z;
         }
 
-        public int GetX => _x;
-        public int GetY => _y;
+        public void UpdateLastPos() => LastPos = Pos;
+
+        public void ResetToLastPos()
+        {
+            if (LastPos != null)
+            {
+                Pos = LastPos;
+            }
+        }
+        
     }
 }
