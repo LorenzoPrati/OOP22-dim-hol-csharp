@@ -1,5 +1,7 @@
-namespace Components{
-    public class ItemComponent{
+namespace Components
+{
+    public class ItemComponent
+    {
         private Func<Entity, List<Type<IEnumerable<Components>>>, Boolean> effect; 
 
         public ItemComponent(Func<Entity, List<IEnumerable<Components>>, Boolean> effect)
