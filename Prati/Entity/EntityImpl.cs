@@ -6,7 +6,7 @@ namespace Entity
     {
 
         private readonly ISet<IComponent> _components;
-        private readonly Guid _id;
+        public Guid Id { get; private set; }
         public ISet<IComponent> Components
         {
             get { return new HashSet<IComponent>(_components); }
@@ -15,7 +15,13 @@ namespace Entity
         public EntityImpl(ISet<IComponent> components)
         {
             _components = new HashSet<IComponent>(components);
-            _id = System.Guid.NewGuid();
+            Id = System.Guid.NewGuid();
+        }
+
+        public EntityImpl(IEntity other)
+        {
+            _components = other.Components;
+            Id = other.Id;
         }
 
         public void AddComponent(IComponent component)
@@ -30,18 +36,19 @@ namespace Entity
 
         public IComponent GetComponent(Type compType)
         {
-            return null;
+            return _components.First(c => c.GetType().Equals(compType));
         }
 
         public bool HasComponent(Type compType)
         {
-            return false;
+            return _components.Any(c => c.GetType().Equals(compType));
         }
 
         public bool HasFamily(ISet<Type> family)
         {
-            return family.IsSubsetOf(_components);
+            return _components.Where(c => family.Contains(c.GetType()))
+                    .Count()
+                    .Equals(family.Count);
         }
-        
     }
 }
