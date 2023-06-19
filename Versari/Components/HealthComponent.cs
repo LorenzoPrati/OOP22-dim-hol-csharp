@@ -1,19 +1,14 @@
 namespace Components
 {
-    public class HealthComponent
+    public class HealthComponent : IComponent
     {
-        private int _maxHealth;
-        private int _currentHealth;
+        public int MaxHealth { get; set; }
+        public int CurrentHealth { get; set; }
 
         public HealthComponent(int maxHealth)
         {
-            _maxHealth = maxHealth;
-            _currentHealth = maxHealth;
+            MaxHealth = maxHealth;
+            CurrentHealth = maxHealth;
         }
-
-        public int GetMaxHealth() => _maxHealth;
-        public int GetCurrentHealth() => _currentHealth;
-        public void SetCurrentHealth(int newCurrentHealth) => _currentHealth = newCurrentHealth;
-        public void SetMaxHealth(int newMaxHealth) => _maxHealth = newMaxHealth;
     }
 }
