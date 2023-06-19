@@ -1,6 +1,6 @@
 namespace Components
 {
-    public class ItemComponent
+    public class ItemComponent : IComponent
     {
         private Func<Entity, List<Type<IEnumerable<Components>>>, Boolean> effect; 
 
@@ -9,7 +9,7 @@ namespace Components
             _effect = effect;
         }
 
-        public Boolean ApplyEffect(Entity entity, List<Type<IEnumerable<Components>>> components)
+        public bool ApplyEffect(Entity entity, List<Type<IEnumerable<Components>>> components)
         {
             return _effect(entity, components);
         }
