@@ -1,9 +1,9 @@
-﻿namespace Dajko
+﻿namespace Levels
 {
     /// BossRoomStartegy is responsable for generating entities for a boss room in the game.
     /// It generates the player, boss and enemy waves for the room.
 
-    public class BossRoomStartegy : AbstractRoomStartegy
+    public class BossRoomStartegy : RoomStrategy
     {
         private const int PLAYER_ENTITY_WIDTH = 1;
         private const int PLAYER_ENTITY_HEIGHT = 1;
@@ -25,7 +25,7 @@
         }
 
         /// Generate entities for a boss room:
-        public List<Entity> Generate(Optional<Entity> entities, HashSet<Tuple<int, int>> availableTiles,
+        public List<IEntity> Generate(Optional<Entity> entities, HashSet<Tuple<int, int>> availableTiles,
             List<Entity> entities)
         {
             var newListOfEntities = new List<Entity>;
