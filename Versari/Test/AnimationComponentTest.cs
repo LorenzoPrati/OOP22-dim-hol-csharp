@@ -1,5 +1,5 @@
-using MyComponents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MyComponents;
 namespace Test;
 
 [TestClass]
