@@ -1,5 +1,5 @@
-using Prati.Entity.Entity.csproj;
-using Versari.Components.Components.csproj;
+using Prati.Entity;
+using Versari.Component;
 
 namespace Entity
 {
@@ -7,7 +7,7 @@ namespace Entity
     {
         private static int IncreaseCurrentHealth = 1;
         private static int IncreaseCurrentCoins = 1;
-        private readonly Func<Entity, List<Type<IEnumerable<Components>>>, Boolean> increaseCurrentHealth = (e, c) => 
+        private readonly Func<Entity, List<Type>, Boolean> increaseCurrentHealth = (e, c) => 
         {
             var hasComponentNeeded = c.Any(comp => e.HasComponent(comp));
             if(hasComponentNeeded)
@@ -23,7 +23,7 @@ namespace Entity
             return false;
         };
 
-        private readonly Func<Entity, List<Type<IEnumerable<Components>>>, Boolean> increaseCurrentCoinsAmount = (e, c) => 
+        private readonly Func<IEntity, List<Type>, Boolean> increaseCurrentCoinsAmount = (e, c) => 
         {
             var hasComponentNeeded = c.Any(comp => e.HasComponent(comp));
             if(hasComponentNeeded)

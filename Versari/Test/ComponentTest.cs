@@ -1,4 +1,4 @@
-﻿using Components;
+﻿using MyComponents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Test;
