@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Dimhol.Levels
+namespace Levels
 {
     /// Generates a new level for the game, including the placement of the player and enemies.
     public interface ILevelManager
