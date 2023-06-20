@@ -7,14 +7,27 @@ namespace Test;
 public class ComponentTest
 {
     [TestMethod]
-    public void TestMethod1()
+    public void PositionComponentTest()
     {
-        var pos = new PositionComponent(new Vector2D(3,4),0);
-        Assert.AreEqual(new Vector2D(3,4), pos.Pos);
+        var pos = new PositionComponent(new Vector2D(0, 1), 0);
+        Assert.AreEqual(new Vector2D(0, 1), pos.Pos);
         pos.UpdateLastPos();
-        Assert.AreEqual(new Vector2D(3,4), pos.LastPos);
-        pos.Pos = new Vector2D(9,8);
+        Assert.AreEqual(new Vector2D(0, 1), pos.LastPos);
+        pos.Pos = new Vector2D(1,-1);
         pos.ResetToLastPos();
-        Assert.AreEqual(new Vector2D(3,4), pos.Pos);
+        Assert.AreEqual(new Vector2D(0, 1), pos.Pos);
+    }
+
+    [TestMethod]
+    public void MovementComponentTest()
+    {
+        var mov = new MovementComponent(new Vector2D(-1, 0), 1, false);
+        Assert.IsFalse(mov.Enabled);
+        Assert.AreEqual(new Vector2D(-1, 0), mov.Dir);
+        Assert.AreEqual(1, mov.Speed);
+        mov.Enabled = true;
+        mov.Dir = new Vector2D(0, -1);
+        Assert.IsTrue(mov.Enabled);
+        Assert.AreEqual(new Vector2D(0, -1), mov.Dir);
     }
 }

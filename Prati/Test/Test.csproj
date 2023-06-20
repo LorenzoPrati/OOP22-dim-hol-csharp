@@ -16,6 +16,8 @@
 
     <ProjectReference Include="..\Components\Components.csproj" />
     <ProjectReference Include="..\Entity\Entity.csproj" />
+    <ProjectReference Include="..\Core\Core.csproj" />
+
 
   </ItemGroup>
 

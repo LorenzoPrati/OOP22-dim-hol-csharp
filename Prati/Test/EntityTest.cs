@@ -7,32 +7,33 @@ namespace Test;
 [TestClass]
 public class Entitytest
 {
+    private IEntity _entity;
+
+    [TestInitialize]
+    public void TestInitialize()
+    {
+        _entity = new EntityBuilder()
+                .Add(new PositionComponent(new Vector2D(1,0), 1))
+                .Add(new MovementComponent(new Vector2D(0,-1), 1, true)).Build();
+    }
 
     [TestMethod]
-    public void TestMethod1()
+    public void TestComponents()
     {
-        // Entity builder test
-        var components = new HashSet<IComponent>();
-        var pos = new PositionComponent(new Vector2D(0,0),1);
-        var mov = new MovementComponent(new Vector2D(0,0),3,true);
-        components.Add(pos);
-        components.Add(mov);
-        var entity = new EntityBuilder().Add(pos).Add(mov).Build();
+        Assert.AreEqual(2, _entity.Components.Count);
+        Assert.IsTrue(_entity.HasComponent(typeof(PositionComponent)));
+        _entity.RemoveComponent(_entity.GetComponent(typeof(MovementComponent)));
+        Assert.IsFalse(_entity.HasComponent(typeof(MovementComponent)));
+    }
 
-        Assert.AreEqual(components.Count, entity.Components.Count);
-        Assert.AreEqual(true, entity.HasComponent(mov.GetType()));
-        entity.RemoveComponent(mov);
-        Assert.AreEqual(false, entity.HasComponent(mov.GetType()));
-
-        var c = (PositionComponent) entity.GetComponent(pos.GetType());
-        Assert.AreEqual(0, c.Pos.X);
-        
-        // Family test
+    [TestMethod]
+    public void TestFamily()
+    {
         ISet<Type> family = new HashSet<Type>();
-        family.Add(pos.GetType());
-        Assert.AreEqual(true, entity.HasFamily(family));
-        family.Add(mov.GetType());
-        entity.AddComponent(mov);
-        Assert.AreEqual(true, entity.HasFamily(family));
+        family.Add(typeof(PositionComponent));
+        family.Add(typeof(MovementComponent));
+        Assert.IsTrue(_entity.HasFamily(family));
+        _entity.RemoveComponent(_entity.GetComponent(typeof(MovementComponent)));
+        Assert.IsFalse(_entity.HasFamily(family));
     }
 }
