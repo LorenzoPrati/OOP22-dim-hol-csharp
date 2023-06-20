@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Test;
+[TestClass]
 public class ComponentTest
 {
     private static int MaxHealth = 10;
@@ -9,6 +10,7 @@ public class ComponentTest
     private static int NewCurrentHealth = 8;
     private static int InitialCoinAmount = 30;
     private static int NewCoinAmount = 25;
+    
     [TestMethod]
     public void HealthComponentTest()
     {

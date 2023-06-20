@@ -8,7 +8,6 @@ namespace Components
         public int Index { get; set; }
         public int Counter { get; set; }
         public bool Completed { get; set; }
-
         public AnimationComponent(Dictionary<string, List<int>> map, string initialState)
         {
             Index = 0;
