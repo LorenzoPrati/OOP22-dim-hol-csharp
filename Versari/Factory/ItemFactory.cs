@@ -1,13 +1,14 @@
-using Prati.Entity.Entity.csproj;
-using Versari.Components.Components.csproj;
+using Entity;
+using MyComponents;
+using Components;
 
-namespace Entity
+namespace Factory
 {
     public class ItemFactory
     {
         private static int IncreaseCurrentHealth = 1;
         private static int IncreaseCurrentCoins = 1;
-        private readonly Func<Entity, List<Type<IEnumerable<Components>>>, Boolean> increaseCurrentHealth = (e, c) => 
+        private readonly Func<IEntity, List<Type>, Boolean> increaseCurrentHealth = (e, c) => 
         {
             var hasComponentNeeded = c.Any(comp => e.HasComponent(comp));
             if(hasComponentNeeded)
@@ -23,7 +24,7 @@ namespace Entity
             return false;
         };
 
-        private readonly Func<Entity, List<Type<IEnumerable<Components>>>, Boolean> increaseCurrentCoinsAmount = (e, c) => 
+        private readonly Func<IEntity, List<Type>, Boolean> increaseCurrentCoinsAmount = (e, c) => 
         {
             var hasComponentNeeded = c.Any(comp => e.HasComponent(comp));
             if(hasComponentNeeded)
@@ -35,19 +36,19 @@ namespace Entity
             return false;
         };
 
-        public Entity createHeart(double x, double y)
+        public IEntity CreateHeart(double x, double y)
         {
-            return new EntityBuilder
-                .Add(new PositionComponent(new Vector2D(x, y)), 0) 
+            return new EntityBuilder()
+                .Add(new PositionComponent(new Vector2D(x, y), 0)) 
                 .Add(new ItemComponent(increaseCurrentHealth))
                 .Build(); 
 
         }
 
-        public Entity createCoin(double x, double y)
+        public IEntity CreateCoin(double x, double y)
         {
-            return new EntityBuilder
-                .Add(new PositionComponent(new Vector2D(x, y)), 0)
+            return new EntityBuilder()
+                .Add(new PositionComponent(new Vector2D(x, y), 0))
                 .Add(new ItemComponent(increaseCurrentCoinsAmount))
                 .Build();
         }

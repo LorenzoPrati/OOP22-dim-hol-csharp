@@ -1,10 +1,12 @@
-namespace Components
+using Components;
+
+namespace MyComponents
 {
     public class CoinPocketComponent : IComponent
     {
         public int Coins { get; set; }
 
-        public HealthComponent(int newAmount)
+        public CoinPocketComponent(int newAmount)
         {
             Coins = newAmount;
         }
