@@ -13,7 +13,6 @@ namespace MyComponents
         public AnimationComponent(Dictionary<string, List<int>> map, string initialState)
         {
             Index = 0;
-            // TODO fix copy of the dictionary
             foreach (var s in map)
             {
                 _map.Add(s.Key, new List<int>(s.Value));
@@ -32,8 +31,7 @@ namespace MyComponents
         } 
         public int GetMaxIndex()
         {
-            return _map[_state][0];
-                
+            return _map[_state][0];      
         }
         public int GetImageNumber()
         {
