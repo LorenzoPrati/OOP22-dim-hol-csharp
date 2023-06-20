@@ -4,33 +4,36 @@ using Entity;
 
 namespace AITest;
 
+[TestClass]
 public class BehaviourUtilTest
 {
     private Vector2D _playerPosition;
     private Vector2D _enemyPosition;
 
-    [SetUp]
-    public void Setup()
+    [TestInitialize]
+    public void TestInitialize()
     {
         _playerPosition = new Vector2D(0, 0);
         _enemyPosition = new Vector2D(4, 0);
     }
 
-    [Test]
-    public void Test1()
+    [TestMethod]
+    public void TestGetPlayerDirection()
     {
-        Assert.That(BehaviourUtil.GetPlayerDirection(_playerPosition, _enemyPosition), 
-            Is.EqualTo(new Vector2D(-1, 0)));
+        Assert.AreEqual(BehaviourUtil.GetPlayerDirection(_playerPosition, _enemyPosition), 
+            new Vector2D(-1, 0));
     }
+    
 }
 
+[TestClass]
 public class ActionsTest
 {
     private IEntity _player;
     private IEntity _enemy;
-    
-    [SetUp]
-    public void Setup()
+
+    [TestInitialize]
+    public void TestInitialize()
     {
         var actions = new List<IAction>
         {
@@ -47,14 +50,15 @@ public class ActionsTest
             .Build();
     }
 
-    [Test]
-    public void TestAIRandomMovement()
+    [TestMethod]
+    public void TestAction()
     {
         var enemyAi = _enemy.GetComponent(typeof(AIComponent)) as AIComponent;
         var actions = enemyAi!.GetRoutine();
         var followMovAction = actions[0];
         followMovAction.SetPlayer(_player);
         followMovAction.SetEnemy(_enemy);
-        Assert.That(followMovAction.CanExecute(), Is.True);
-    } 
+        Assert.AreEqual(followMovAction.CanExecute(), true);
+    }
+    
 }
