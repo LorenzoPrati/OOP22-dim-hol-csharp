@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Levels.Map
+namespace Map
 {
     /// The ITileMap interface represents a map made up of tiles.
     public interface ITileMap
     {
         /// Returns the tile at the specified coordinates.
-        Tile GetTile(int x, int y);
+        ITile GetTile(int x, int y);
 
         /// Returns the width of the tile map.
         int GetWidth();
@@ -21,7 +21,7 @@ namespace Levels.Map
         int GetTileHeight();
 
         /// Returns the layers of the tile map.
-        List<Tile[,]> GetLayers();
+        List<ITile[,]> GetLayers();
 
         /// Checks if the given coordinates are valid within the map.
         bool IsValidCoordinate(int x, int y);
