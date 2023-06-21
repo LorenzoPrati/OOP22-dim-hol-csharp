@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
+using Entity;
+using Factories;
 
-namespace Tests.Factories
+namespace FactoriesTest
 {
     [TestFixture]
     public class BossFactoryTests
@@ -13,7 +15,7 @@ namespace Tests.Factories
             double x = 10;
             double y = 20;
             /// Act
-            Entity bossEntity = bossFactory.CreateBoss(x, y);
+            IEntity bossEntity = bossFactory.CreateBoss(x, y);
             /// Assert
             Assert.IsNotNull(bossEntity);
             /// Add more assertions to validate the properties or components of the bossEntity
@@ -27,7 +29,7 @@ namespace Tests.Factories
             double x = 10;
             double y = 20;
             /// Act
-            Entity minionEntity = bossFactory.CreateMinion(x, y);
+            IEntity minionEntity = bossFactory.CreateMinion(x, y);
             /// Assert
             Assert.IsNotNull(minionEntity);
             /// Add more assertions to validate the properties or components of the minionEntity
