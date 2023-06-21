@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Entity;
+using Components;
+using Factories;
+using Map;
+using System.Collections.Generic;
+
 
 namespace Levels
 {
@@ -6,9 +11,9 @@ namespace Levels
     public interface ILevelManager
     {
         /// Changes the current level in the game and returns the updated list of entities.
-        List<Entity> ChangeLevel(List<Entity> entities);
+        List<IEntity> ChangeLevel(List<IEntity> entities);
 
         /// Retrieves the tile map for the current level.
-        TileMap GetTileMap();
+        ITileMap GetTileMap();
     }
 }
