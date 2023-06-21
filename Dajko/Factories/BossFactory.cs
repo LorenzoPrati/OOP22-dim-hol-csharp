@@ -1,5 +1,8 @@
 ﻿using System.Numerics;
 
+using Entity;
+using Components;
+
 namespace Factories
 {
     /// <summary>
@@ -19,37 +22,23 @@ namespace Factories
         /// <summary>
         /// Create a Boss Entity.
         /// </summary>
-        /// <param name="x">The x-coordinate of the Boss.</param>
-        /// <param name="y">The y-coordinate of the Boss.</param>
-        /// <returns>The created Boss entity.</returns>
-        public Entity CreateBoss(double x, double y)
+        public IEntity CreateBoss(double x, double y)
         {
             return new EntityBuilder()
                 .Add(new BossComponent())
-                .Add(new PositionComponent(new Vector2(x, y), 0))
-                .Add(new MovementComponent(new Vector2(0, 1), BossSpeed, false))
-                .Add(new BodyComponent(new RectBodyShape(BossWidth, BossHeight), true))
-                .Add(new HealthComponent(BossHealth))
-                .Add(new AnimationComponent(GetAnimationsMap()["boss"], "walk"))
-                .Add(new AIComponent(new RoutineFactory().CreateBossRoutine()))
+                .Add(new PositionComponent(new Vector2D(x, y), 0))
+                .Add(new MovementComponent(new Vector2D(0, 1), BossSpeed, false))
                 .Build();
         }
 
         /// <summary>
         /// Create a minion Entity.
         /// </summary>
-        /// <param name="x">The x-coordinate of the Minions.</param>
-        /// <param name="y">The y-coordinate of the Minions.</param>
-        /// <returns>The created Minion entity.</returns>
-        public Entity CreateMinion(double x, double y)
+        public IEntity CreateMinion(double x, double y)
         {
             return new EntityBuilder()
-                .Add(new PositionComponent(new Vector2(x, y), 0))
-                .Add(new MovementComponent(new Vector2(0, 1), MinionsSpeed, false))
-                .Add(new BodyComponent(new RectBodyShape(MinionsWidth, MinionsHeight), true))
-                .Add(new HealthComponent(MinionsHealth))
-                .Add(new AnimationComponent(GetAnimationsMap()["enemy"], "idle"))
-                .Add(new AIComponent(new RoutineFactory().CreateMinionRoutine()))
+                .Add(new PositionComponent(new Vector2D(x, y), 0))
+                .Add(new MovementComponent(new Vector2D(0, 1), MinionsSpeed, false))
                 .Build();
         }
     }
