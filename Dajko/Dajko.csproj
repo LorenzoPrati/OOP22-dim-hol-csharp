@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  
+    <ItemGroup>
+      <ProjectReference Include="..\Prati\Entity\Entity.csproj"/>
+      <ProjectReference Include="..\Prati\Components\Components.csproj"/>
+      <ProjectReference Include="..\Prati\Core\Core.csproj"/>
+    </ItemGroup>
+
+</Project>
