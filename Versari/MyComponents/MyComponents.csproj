@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Prati\Components\Components.csproj" />
+    <ProjectReference Include="..\..\Prati\Entity\Entity.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,5 @@
-namespace Components
+using Components;
+namespace MyComponents
 {
     public class HealthComponent : IComponent
     {
