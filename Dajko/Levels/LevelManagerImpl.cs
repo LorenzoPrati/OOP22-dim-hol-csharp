@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Map;
+using Entity;
+using Components;
+using Factories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,11 +15,11 @@ namespace Levels
         private const int DEBUG_LENGTH_TO_BOSS_ROOM = 4;
         private const int DEFAULT_SHOPS_PER_CYCLE = 3;
         private readonly IMapLoader mapLoader;
-        private readonly INormalRoomStrategy normalRoomStrategy;
-        private readonly IShopRoomStrategy shopRoomStrategy;
-        private readonly IBossRoomStrategy bossRoomStrategy;
+        private readonly NormalRoomStrategy normalRoomStrategy;
+        private readonly ShopRoomStrategy shopRoomStrategy;
+        private readonly BossRoomStrategy bossRoomStrategy;
         private readonly int maxRoomNumber;
-        private TileMap tileMap;
+        private ITileMap tileMap;
         private int currentLevel;
 
         /// Constructs a LevelManagerImpl object.
@@ -40,7 +44,7 @@ namespace Levels
         }
 
         /// Changes the current level by generating a new level with the placement of the player and enemies.
-        public List<Entity> ChangeLevel(List<Entity> entities)
+        public List<IEntity> ChangeLevel(List<IEntity> entities)
         {
             currentLevel++;
             var player = SavePlayer(entities);
@@ -65,39 +69,39 @@ namespace Levels
         }
 
         /// Retrieves the tile map for the current level.
-        public TileMap GetTileMap()
+        public ITileMap GetTileMap()
         {
             // Create a defensive copy of the tileMap
             return new TileMapImpl(
-                tileMap.Layers,
-                tileMap.Width,
-                tileMap.Height,
-                tileMap.TileWidth,
-                tileMap.TileHeight);
+                tileMap.GetLayers(),
+                tileMap.GetWidth(),
+                tileMap.GetHeight(),
+                tileMap.GetTileWidth(),
+                tileMap.GetTileHeight());
         }
 
         /// Retrieves the set of available tiles in the map.
-        private HashSet<(int, int)> GetAvailableTiles()
+        private HashSet<Tuple<int, int>> GetAvailableTiles()
         {
-            return Enumerable.Range(0, tileMap.Height)
+            return Enumerable.Range(0, tileMap.GetHeight())
                 .SelectMany(row =>
-                    Enumerable.Range(0, tileMap.Width)
+                    Enumerable.Range(0, tileMap.GetWidth())
                         .Where(column => tileMap.GetTile(column, row).IsWalkableTile())
-                        .Select(column => (row, column))
+                        .Select(column => Tuple.Create(row, column))
                 )
                 .ToHashSet();
         }
 
         /// Retrieves the player entity from the game world.
-        private Entity? SavePlayer(List<Entity> entities)
+        private IEntity? SavePlayer(List<IEntity> entities)
         {
-            return entities.FirstOrDefault(entity => entity.HasComponent<PlayerComponent>());
+            return entities.FirstOrDefault(entity => entity.HasComponent(typeof(PlayerComponent)));
         }
 
         /// Generates the level by adding entities (player, enemies) to the world.
-        private List<Entity> GenerateLevel(Entity? player, List<Entity> entities)
+        private List<IEntity> GenerateLevel(IEntity? player, List<IEntity> entities)
         {
-            return DetermineRoomType().Generate(player, GetFreeTiles(), entities);
+            return DetermineRoomType().Generate(player, GetAvailableTiles(), entities);
         }
     }
 }
