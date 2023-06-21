@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 
-namespace Levels.Map
+namespace Map
 {
     /// Represents a two-dimensional grid of tiles in a game map.
     public sealed class TileMapImpl : ITileMap
     {
-        private readonly Tile[,] tilemap;
+        private readonly ITile[,] tilemap;
         private readonly int width;
         private readonly int height;
         private readonly int tileWidth;
         private readonly int tileHeight;
-        private readonly List<Tile[,]> layers;
+        private readonly List<ITile[,]> layers;
 
         /// Creates a new TileMap with the given layers, width, height, tileWidth, and tileHeight.
-        public TileMapImpl(List<Tile[,]> layers, int width, int height, int tileWidth, int tileHeight)
+        public TileMapImpl(List<ITile[,]> layers, int width, int height, int tileWidth, int tileHeight)
         {
-            this.layers = new List<Tile[,]>(layers);
+            this.layers = new List<ITile[,]>(layers);
             this.width = width;
             this.height = height;
             this.tileWidth = tileWidth;
@@ -24,7 +24,7 @@ namespace Levels.Map
         }
 
         /// Gets the Tile at the given coordinates.
-        public Tile GetTile(int x, int y)
+        public ITile GetTile(int x, int y)
         {
             return tilemap[x, y];
         }
@@ -40,16 +40,43 @@ namespace Levels.Map
 
         /// Gets the height of each tile in pixels.
         public int TileHeight => tileHeight;
-        
+
         /// Gets the list of map layers.
         /// Uses the 'IReadOnlyList<T>' interface to expose the layers as a read-only list.
-        /// 'AsReadOnly()' called on layers list, is used to create an immutable read-only list. 
-        public IReadOnlyList<Tile[,]> Layers => layers.AsReadOnly();    
+        /// 'AsReadOnly()' called on layers list is used to create an immutable read-only list.
+        public List<ITile[,]> GetLayers()
+        {
+            return new List<ITile[,]>(layers);
+        }
 
         /// Checks if the given coordinates are valid within the map.
         public bool IsValidCoordinate(int x, int y)
         {
             return x >= 0 && x < width && y >= 0 && y < height;
+        }
+        
+        /// Gets the height of each tile in pixels.
+        int ITileMap.GetTileWidth()
+        {
+            return tileWidth;
+        }
+
+        /// Gets the height of each tile in pixels.
+        int ITileMap.GetTileHeight()
+        {
+            return tileHeight;
+        }
+        
+        /// Gets the width.
+        int ITileMap.GetWidth()
+        {
+            return width;
+        }
+
+        /// Gets the height.
+        int ITileMap.GetHeight()
+        {
+            return height;
         }
     }
 }
