@@ -11,31 +11,31 @@ namespace Map
         /// <summary>
         /// Retrieves the tile layers of the map.
         /// </summary>
-        List<Tile[,]> GetMapTileLayers();
+        List<ITile[,]> GetMapTileLayers();
 
         /// <summary>
         /// Loads a normal room tile map.
         /// </summary>
-        TileMap LoadNormalRoom();
+        ITileMap LoadNormalRoom();
 
         /// <summary>
         /// Loads a shop room tile map.
         /// </summary>
-        TileMap LoadShopRoom();
+        ITileMap LoadShopRoom();
 
         /// <summary>
         /// Loads a boss room tile map.
         /// </summary>
-        TileMap LoadBossRoom();
+        ITileMap LoadBossRoom();
 
         /// <summary>
         /// Loads a room map from the given input stream.
         /// </summary>
-        TileMap LoadRoomMap(Stream inputStream);
+        ITileMap LoadRoomMap(Stream inputStream);
 
         /// <summary>
         /// Returns the tile map data as a <see cref="TileMapImpl"/> object.
         /// </summary>
-        TileMap GetTileMap();
+        ITileMap GetTileMap();
     }
 }
